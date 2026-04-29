@@ -12,7 +12,7 @@ Use it when a change touches risk: deploys, migrations, backups, auth, credentia
 
 Generated with `image_gen` / `openai-codex` / `gpt-image-2-medium`. A deterministic HTML/SVG fallback is in [`assets/anvil-loop-flowchart.zh.html`](assets/anvil-loop-flowchart.zh.html).
 
-In the graph, `有问题？` means **a blocker or proven issue that must be handled before shipping**. Non-blockers can be documented, accepted, or deferred.
+In the graph, `必须处理？` means a blocker or proven issue that must be handled before shipping. Non-blockers can be documented, accepted, or deferred.
 
 ## What it means
 
@@ -36,7 +36,15 @@ Canonical skill file:
 
 `skills/software-development/anvil-loop-development/SKILL.md`
 
-For a local Hermes install, run from this repo root:
+For a local Hermes install, use the raw skill URL:
+
+```bash
+hermes skills install \
+  https://raw.githubusercontent.com/getaskclaw/anvil-loop/main/skills/software-development/anvil-loop-development/SKILL.md \
+  --category software-development
+```
+
+Manual fallback, run from this repo root:
 
 ```bash
 mkdir -p ~/.hermes/skills/software-development/anvil-loop-development
@@ -45,7 +53,7 @@ cp skills/software-development/anvil-loop-development/SKILL.md \
 hermes skills list | grep anvil-loop-development
 ```
 
-Then start a new Hermes session. In an existing CLI session use `/reset`; in Telegram/Discord gateway use `/restart` if the tool/skill list does not refresh.
+Then start a new Hermes session. In an existing CLI session use `/reset`; in Telegram/Discord gateway use `/restart` if the tool/skill list does not refresh. Load it with `/skill anvil-loop-development`.
 
 There is intentionally no root `SKILL.md`, to avoid duplicate drift.
 
