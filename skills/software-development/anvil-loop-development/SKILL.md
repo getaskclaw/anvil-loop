@@ -1,7 +1,7 @@
 ---
 name: anvil-loop-development
 description: "Use when a change needs hardening beyond a happy-path pass: implement, test, get independent break/review, convert real findings into tests or doc fixes, and repeat until verified with no blockers."
-version: 1.1.0
+version: 1.1.1
 author: Ash
 license: MIT
 metadata:
@@ -21,7 +21,7 @@ Do not stop at “it works once.” Put the change on the anvil, hit it with tes
 Short form:
 
 ```text
-contract → build → verify → break/review → fix → re-verify → re-review → stop
+contract → implement → verify → break/review → fix → re-verify → re-break/review → stop
 ```
 
 ## Use When
@@ -43,7 +43,7 @@ Usually do **not** use it for tiny typo-only edits unless the typo changes a com
    - What must not happen?
    - What are the dangerous assumptions?
 
-2. **Build the smallest useful change**
+2. **Implement the smallest useful change**
    - Avoid speculative fixes.
    - Keep unrelated edits out.
 
@@ -141,9 +141,10 @@ Lightweight Markdown smoke checks:
 These checks are only a starting gate. They do **not** replace full secret scanning, command review, or operational review.
 
 ```bash
-python3 - <<'PY'
+DOC=${DOC:-README.md} python3 - <<'PY'
+import os
 from pathlib import Path
-p = Path('DOC.md')
+p = Path(os.environ['DOC'])
 s = p.read_text()
 fence = chr(96) * 3
 assert s.count(fence) % 2 == 0, 'unbalanced code fences'
@@ -201,7 +202,7 @@ Verification: <test/check/re-review result>
 2. **Self-reviewing and calling it independent**
    - Use a fresh reviewer/subagent where possible.
 
-3. **Patching without a failing test or exact doc evidence**
+3. **Implementing without a failing test or exact doc evidence**
    - This creates guess-fixes and new regressions.
 
 4. **Stopping after a last-minute edit**

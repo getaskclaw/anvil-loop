@@ -3,7 +3,7 @@
 A hardening workflow for changes that need more than a happy-path pass.
 
 ```text
-contract → build → verify → break/review → fix → re-verify → re-break/review → stop
+contract → implement → verify → break/review → fix → re-verify → re-break/review → stop
 ```
 
 Use it when a change touches risk: deploys, migrations, backups, auth, credentials, rollback, CLI/tools, filesystem/process handling, generated artifacts, or operational docs people may copy-paste.
@@ -12,12 +12,14 @@ Use it when a change touches risk: deploys, migrations, backups, auth, credentia
 
 Generated with `image_gen` / `openai-codex` / `gpt-image-2-medium`. A deterministic HTML/SVG fallback is in [`assets/anvil-loop-flowchart.zh.html`](assets/anvil-loop-flowchart.zh.html).
 
+In the graph, `有问题？` means **a blocker or proven issue that must be handled before shipping**. Non-blockers can be documented, accepted, or deferred.
+
 ## What it means
 
 Do not stop at “it works once.”
 
 1. State the contract.
-2. Build the smallest useful change.
+2. Implement the smallest useful change.
 3. Verify directly.
 4. Get independent break/review.
 5. Classify findings.
@@ -34,15 +36,16 @@ Canonical skill file:
 
 `skills/software-development/anvil-loop-development/SKILL.md`
 
-For a local Hermes install, copy it to:
-
-`~/.hermes/skills/software-development/anvil-loop-development/SKILL.md`
+For a local Hermes install, run from this repo root:
 
 ```bash
 mkdir -p ~/.hermes/skills/software-development/anvil-loop-development
 cp skills/software-development/anvil-loop-development/SKILL.md \
   ~/.hermes/skills/software-development/anvil-loop-development/SKILL.md
+hermes skills list | grep anvil-loop-development
 ```
+
+Then start a new Hermes session. In an existing CLI session use `/reset`; in Telegram/Discord gateway use `/restart` if the tool/skill list does not refresh.
 
 There is intentionally no root `SKILL.md`, to avoid duplicate drift.
 
