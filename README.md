@@ -34,6 +34,12 @@ For a local Hermes install, copy it to:
 
 `~/.hermes/skills/software-development/anvil-loop-development/SKILL.md`
 
+```bash
+mkdir -p ~/.hermes/skills/software-development/anvil-loop-development
+cp skills/software-development/anvil-loop-development/SKILL.md \
+  ~/.hermes/skills/software-development/anvil-loop-development/SKILL.md
+```
+
 There is intentionally no root `SKILL.md`, to avoid duplicate drift.
 
 ## Minimal checklist
