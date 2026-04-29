@@ -26,10 +26,15 @@ If no independent reviewer is available, label it as self-review and do not clai
 
 ## Hermes skill
 
-This repo includes the Hermes skill in two forms:
+Canonical skill file:
 
-- `SKILL.md` — easy to read/copy
-- `skills/software-development/anvil-loop-development/SKILL.md` — in-repo Hermes skill layout
+`skills/software-development/anvil-loop-development/SKILL.md`
+
+For a local Hermes install, copy it to:
+
+`~/.hermes/skills/software-development/anvil-loop-development/SKILL.md`
+
+There is intentionally no root `SKILL.md`, to avoid duplicate drift.
 
 ## Minimal checklist
 
