@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin:0; width:1600px; height:900px; overflow:hidden; background:#0b1020; }
+  svg { width:1600px; height:900px; display:block; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif; }
+  .title { font-size:72px; font-weight:800; fill:#f8fafc; }
+  .sub { font-size:32px; fill:#cbd5e1; }
+  .node-text { font-size:38px; font-weight:780; fill:#f8fafc; text-anchor:middle; dominant-baseline:middle; }
+  .node-small { font-size:32px; font-weight:780; fill:#f8fafc; text-anchor:middle; dominant-baseline:middle; }
+  .branch { font-size:27px; font-weight:760; fill:#e2e8f0; }
+  .note { font-size:31px; fill:#e2e8f0; }
+  .url { font-size:27px; fill:#93c5fd; }
+  .arrow { stroke:#94a3b8; stroke-width:5; fill:none; stroke-linecap:round; stroke-linejoin:round; marker-end:url(#arrow); }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1600 900" role="img" aria-label="铁砧循环标准流程图">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <radialGradient id="blue" cx="18%" cy="12%" r="36%">
+      <stop offset="0" stop-color="#60a5fa" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="red" cx="86%" cy="78%" r="34%">
+      <stop offset="0" stop-color="#f87171" stop-opacity="0.17"/>
+      <stop offset="1" stop-color="#f87171" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#94a3b8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#blue)"/>
+  <rect width="1600" height="900" fill="url(#red)"/>
+
+  <text x="90" y="92" class="title">铁砧循环 Anvil Loop</text>
+  <text x="90" y="145" class="sub">标准流程图：有问题就回炉，没有阻塞才停止。</text>
+
+  <!-- nodes -->
+  <rect x="100" y="250" width="220" height="100" rx="24" fill="rgba(30,64,175,.48)" stroke="rgba(147,197,253,.72)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="210" y="300" class="node-text">需求</text>
+
+  <rect x="405" y="250" width="220" height="100" rx="24" fill="rgba(15,23,42,.80)" stroke="rgba(255,255,255,.22)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="515" y="300" class="node-text">构建</text>
+
+  <rect x="710" y="250" width="220" height="100" rx="24" fill="rgba(15,23,42,.80)" stroke="rgba(255,255,255,.22)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="820" y="300" class="node-text">验证</text>
+
+  <rect x="1015" y="250" width="220" height="100" rx="24" fill="rgba(113,63,18,.50)" stroke="rgba(251,191,36,.72)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1125" y="286" class="node-small">独立挑错/</text>
+  <text x="1125" y="322" class="node-small">复审</text>
+
+  <polygon points="1370,215 1470,300 1370,385 1270,300" fill="rgba(88,28,135,.52)" stroke="rgba(216,180,254,.76)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1370" y="285" class="node-small">有阻塞</text>
+  <text x="1370" y="323" class="node-small">问题？</text>
+
+  <rect x="710" y="540" width="220" height="100" rx="24" fill="rgba(127,29,29,.48)" stroke="rgba(248,113,113,.72)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="820" y="590" class="node-text">修复</text>
+
+  <rect x="1260" y="540" width="220" height="100" rx="24" fill="rgba(20,83,45,.52)" stroke="rgba(74,222,128,.72)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1370" y="590" class="node-text">停止</text>
+
+  <!-- arrows -->
+  <line x1="320" y1="300" x2="405" y2="300" class="arrow"/>
+  <line x1="625" y1="300" x2="710" y2="300" class="arrow"/>
+  <line x1="930" y1="300" x2="1015" y2="300" class="arrow"/>
+  <line x1="1235" y1="300" x2="1270" y2="300" class="arrow"/>
+
+  <!-- yes branch to fix -->
+  <path d="M1308 365 C1195 470, 1050 565, 930 590" class="arrow"/>
+  <text x="1042" y="518" class="branch" fill="#fecaca">是：修复</text>
+
+  <!-- fix loops back to verify -->
+  <path d="M820 540 L820 350" class="arrow"/>
+  <text x="842" y="462" class="branch" fill="#fecaca">修复后回到验证</text>
+
+  <!-- no branch to stop -->
+  <path d="M1370 385 L1370 540" class="arrow"/>
+  <text x="1395" y="468" class="branch" fill="#bbf7d0">否</text>
+
+  <!-- note -->
+  <rect x="90" y="720" width="1420" height="92" rx="18" fill="rgba(15,23,42,.74)" stroke="rgba(96,165,250,.65)" stroke-width="2"/>
+  <rect x="90" y="720" width="8" height="92" rx="4" fill="#60a5fa"/>
+  <text x="125" y="778" class="note">关键规则：最后一次修改后，必须重新验证；没有独立复审，只能叫自查，不能说循环完成。</text>
+  <text x="1060" y="858" class="url">github.com/getaskclaw/anvil-loop</text>
+</svg>
+</body>
+</html>

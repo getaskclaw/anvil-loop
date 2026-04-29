@@ -3,10 +3,14 @@
 A hardening workflow for changes that need more than a happy-path pass.
 
 ```text
-contract → build → verify → break/review → fix → re-verify → re-review → stop
+contract → build → verify → break/review → fix → re-verify → re-break/review → stop
 ```
 
 Use it when a change touches risk: deploys, migrations, backups, auth, credentials, rollback, CLI/tools, filesystem/process handling, generated artifacts, or operational docs people may copy-paste.
+
+![Anvil Loop standard flowchart in Chinese](assets/anvil-loop-flowchart.zh.png)
+
+Generated with `image_gen` / `openai-codex` / `gpt-image-2-medium`. A deterministic HTML/SVG fallback is in [`assets/anvil-loop-flowchart.zh.html`](assets/anvil-loop-flowchart.zh.html).
 
 ## What it means
 
@@ -19,7 +23,7 @@ Do not stop at “it works once.”
 5. Classify findings.
 6. Convert real findings into tests, repros, or exact doc evidence.
 7. Fix only proven problems.
-8. Re-run checks and re-review.
+8. Re-run checks and break/review again.
 9. Stop only when there are no blockers.
 
 If no independent reviewer is available, label it as self-review and do not claim the anvil loop is complete.
